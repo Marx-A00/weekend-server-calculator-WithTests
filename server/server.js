@@ -29,8 +29,8 @@ if (process.env.NODE_ENV === 'test') {
 // This starts the server...but also stores it in a variable.
 // This is weird. We have to do it for testing reasons. There
 // is absolutely no need for you to reason about this.
-const server = app.listen(PORT, () => {
-  console.log('server running on: ', PORT);
+const server = app.listen(PORT,() => {
+  console.log(`server running on: http://localhost:${PORT}`);
 });
 
 // server.setTimeout(500)
