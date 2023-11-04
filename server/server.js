@@ -7,12 +7,16 @@ app.use(express.static('server/public'));
 
 // Global variable that will contain all of the
 // calculation objects:
-let calculations = [] // an object containing num1,num2, and operation
+let calculations = [{}];
+// an object containing num1,num2, and operation
+
+
 
 
 // Here's a wonderful place to make some routes:
 
 // GET /calculations
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
 
 // POST /calculations
 
