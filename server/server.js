@@ -1,13 +1,17 @@
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser');
 let PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 app.use(express.static('server/public'));
 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 // Global variable that will contain all of the
 // calculation objects:
-let calculations = [{}];
+let calculations = [];
 // an object containing num1,num2, and operation
 
 
@@ -16,9 +20,27 @@ let calculations = [{}];
 // Here's a wonderful place to make some routes:
 
 // GET /calculations
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+
 
 // POST /calculations
+app.post("/calculation",(req,res) => {
+
+  let calculation = req.body;
+  console.log(calculation);
+  calculations.push(calculation);
+
+  let handledCalculation = handleCalculation(calculation);
+  // actual calculation
+  res.send(calculation);
+  console.log(handledCalculation);
+});
+// sumthing happening here with the empty shit
+
+function handleCalculation(){
+  let currentCalculation = calculations.pop;
+  // may have 2 parse here
+  (currentCalculation.num1 + currentCalculation.operator + currentCalculation.num2);
+}
 
 
 // PLEASE DO NOT MODIFY ANY CODE BELOW THESE BEARS:

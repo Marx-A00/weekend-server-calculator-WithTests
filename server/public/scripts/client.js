@@ -1,3 +1,4 @@
+
 console.log('client.js is sourced!');
 let globalOperator;
 let num1;
@@ -13,6 +14,15 @@ function handleSubmit(event){
         operator: globalOperator
     }
     console.log(calculation);
+    axios({
+        method:"POST",
+        url:"/calculation",
+        data: calculation
+    }).then((response) =>{
+        console.log(response.data);
+
+        let totalCalculation = response.data;
+    })
 
 }
 
