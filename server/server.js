@@ -3,7 +3,6 @@ const app = express();
 const bodyParser = require('body-parser');
 let PORT = process.env.PORT || 5000;
 
-app.use(express.json());
 app.use(express.static('server/public'));
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -20,27 +19,46 @@ let calculations = [];
 // Here's a wonderful place to make some routes:
 
 // GET /calculations
-
+//Create a `GET '/calculations'` route that will send the `calculations` array back to the client.
+// app.get()
+app.get("/calculations", (req,res) =>{
+  res.send(calculations);
+})
 
 // POST /calculations
-app.post("/calculation",(req,res) => {
+app.post("/calculations",(req,res) => {
+  let expression = req.body;
+  console.log(expression);
+  let equationResult = handleCalculation(expression);
+  console.log(equationResult);
+  calculations.push({
+    num1: expression.num1,
+    num2: expression.num2,
+    operator: expression.operator,
+    result: equationResult
+  });
+  
+  console.log("calculations Array",calculations);
 
-  let calculation = req.body;
-  console.log(calculation);
-  calculations.push(calculation);
-
-  let handledCalculation = handleCalculation(calculation);
-  // actual calculation
-  res.send(calculation);
-  console.log(handledCalculation);
+  res.send(201);
 });
 // sumthing happening here with the empty shit
-
-function handleCalculation(){
-  let currentCalculation = calculations.pop;
-  // may have 2 parse here
-  (currentCalculation.num1 + currentCalculation.operator + currentCalculation.num2);
+// meant to return completed calculation
+function handleCalculation(expression){
+  if(expression.operator === "+"){
+    return (expression.num1 + expression.num2);
+  }
+  else if(expression.operator === "-"){
+    return (expression.num1 - expression.num2);
+  }
+  else if(expression.operator === "*"){
+    return (expression.num1 * expression.num2);
+  }
+  else if(expression.operator === "/"){
+    return (expression.num1 / expression.num2);
+  }
 }
+
 
 
 // PLEASE DO NOT MODIFY ANY CODE BELOW THESE BEARS:

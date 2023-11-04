@@ -10,21 +10,21 @@
     <h1>Server-Side Calculator</h1>
 
     <form  onsubmit="handleSubmit(event)" data-testid="calculator">
-      <input type="number" id="num1" oninput="handleNumbers(event)" placeholder="First Number">
+      <input  id="num1" oninput="handleNumbers(event)" placeholder="First Number">
       <button id ="plusOperator" onclick="HandleOperator(event)">+</button>
       <button id ="minusOperator" onclick="HandleOperator(event)" >-</button>
       <button id ="multiOperator" onclick="HandleOperator(event)">*</button>
       <button id ="divideOperator" onclick="HandleOperator(event)">/</button>
-      <input type= "number" id="num2" oninput="handleNumbers(event)" placeholder="Second Number">
+      <input  id="num2" oninput="handleNumbers(event)" placeholder="Second Number">
       <button >=</button>
       <button id="clear">C</button>
     </form>
 
-    <section data-testid="recentResult">
+    <section id="mostRecent" data-testid="recentResult">
       <!-- The most recent calculation result goes here. -->
     </section>
 
-    <section data-testid="resultHistory">
+    <section id="history" data-testid="resultHistory">
       <!-- The list of calculation results goes here. -->
     </section>
   </body>
