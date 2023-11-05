@@ -2,14 +2,17 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Server-Side Calculator</title>    
+    <title>Server-Side Calculator</title> 
+    <link rel="stylesheet" href="style.css">
     <script defer src="scripts/axios.js"></script>
     <script defer src="scripts/client.js" charset="utf-8"></script>
   </head>
   <body>
     <h1>Server-Side Calculator</h1>
 
-    <form  onsubmit="handleSubmit(event)" data-testid="calculator">
+    <button onclick="reset(event)" id="clear">Clear</button>
+    <div class="calcGrid">
+    <form   class="calcForm" onsubmit="handleSubmit(event)" data-testid="calculator">
       <input  id="num1" oninput="handleNumbers(event)" placeholder="First Number">
       <button id ="plusOperator" onclick="HandleOperator(event)">+</button>
       <button id ="minusOperator" onclick="HandleOperator(event)" >-</button>
@@ -17,15 +20,32 @@
       <button id ="divideOperator" onclick="HandleOperator(event)">/</button>
       <input  id="num2" oninput="handleNumbers(event)" placeholder="Second Number">
       <button >=</button>
-      <button id="clear">C</button>
     </form>
+
+    <div class="grid-container">
+      <div onclick="handleCalcGridPress(event)" class="grid-item">1</div>
+      <div onclick="handleCalcGridPress(event)" class="grid-item">2</div>
+      <div onclick="handleCalcGridPress(event)" class="grid-item">3</div>  
+      <div onclick="handleCalcGridPress(event)" class="grid-item">4</div>
+      <div onclick="handleCalcGridPress(event)" class="grid-item">5</div>
+      <div onclick="handleCalcGridPress(event)" class="grid-item">6</div>  
+      <div onclick="handleCalcGridPress(event)" class="grid-item">7</div>
+      <div onclick="handleCalcGridPress(event)" class="grid-item">8</div>
+      <div onclick="handleCalcGridPress(event)" class="grid-item">9</div> 
+      <div onclick="handleCalcGridPress(event)" class="grid-item0">0</div>   
+    </div>
+  </div>
+
+
 
     <section id="mostRecent" data-testid="recentResult">
       <!-- The most recent calculation result goes here. -->
     </section>
 
-    <section id="history" data-testid="resultHistory">
+    <section data-testid="resultHistory">
+      <div id="history"></div>
       <!-- The list of calculation results goes here. -->
+
     </section>
   </body>
 </html>

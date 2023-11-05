@@ -11,10 +11,6 @@ app.use(bodyParser.json());
 // Global variable that will contain all of the
 // calculation objects:
 let calculations = [];
-// an object containing num1,num2, and operation
-
-
-
 
 // Here's a wonderful place to make some routes:
 
@@ -28,34 +24,29 @@ app.get("/calculations", (req,res) =>{
 // POST /calculations
 app.post("/calculations",(req,res) => {
   let expression = req.body;
-  console.log(expression);
   let equationResult = handleCalculation(expression);
-  console.log(equationResult);
   calculations.push({
     num1: expression.num1,
     num2: expression.num2,
     operator: expression.operator,
     result: equationResult
   });
-  
-  console.log("calculations Array",calculations);
 
   res.send(201);
 });
-// sumthing happening here with the empty shit
-// meant to return completed calculation
+
 function handleCalculation(expression){
   if(expression.operator === "+"){
-    return (expression.num1 + expression.num2);
+    return (Number(expression.num1) + Number(expression.num2));
   }
   else if(expression.operator === "-"){
-    return (expression.num1 - expression.num2);
+    return (Number(expression.num1) - Number(expression.num2));
   }
   else if(expression.operator === "*"){
-    return (expression.num1 * expression.num2);
+    return (Number(expression.num1) * Number(expression.num2));
   }
   else if(expression.operator === "/"){
-    return (expression.num1 / expression.num2);
+    return (Number(expression.num1) / Number(expression.num2));
   }
 }
 

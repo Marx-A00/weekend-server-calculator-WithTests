@@ -1,42 +1,37 @@
+// function for instructions on start up, makes a preliminarly
+// get call to get any calculations from the server
 function onReady(){
     axios({
         url:"/calculations",
         method: "GET"
-
     }).then((response) =>{
-        console.log("response.data",response.data);
         let calcArray = response.data;
         renderCalculations(calcArray);
     })
 }
-console.log('client.js is sourced!');
+// global variables set from input, meant to be sent to server for storage/calculation
 let globalOperator;
 let num1;
 let num2;
+
 //function to handle what happens on submission AKA when the `=` is pressed
 function handleSubmit(event){
-    // post goes here
     event.preventDefault();
     let calculation = {
         num1:num1,
         num2:num2,
         operator: globalOperator
     }
-    console.log(calculation);
-    // sending data to server 
+    // sending data to server for storage/calculation
     axios({
         method:"POST",
         url:"/calculations",
         data: calculation
     }).then((response) =>{
-        console.log("response.data: ",response.data);
         getCalculationsArray();
-
-        let totalCalculation = response.data;
-
     })
-
 }
+// function made to parse the operator input, and set the global operator variable
 function HandleOperator(event){
     event.preventDefault();
     if(event.target.textContent == `+`){
@@ -51,32 +46,50 @@ function HandleOperator(event){
     else if(event.target.textContent == `/`){
         globalOperator = `/`;
     }        
-    console.log(globalOperator);
 }
+// function meant to handle the numbers input into the calculator, sets the global variable
+// for num1 and num2 
 function handleNumbers(event){
     let event_id = event.target.getAttribute("id");
     if(event_id == `num1`){
-        num1 = Number(event.target.value);
+        num1 = event.target.value;
     }
     else if(event_id == `num2`){
-        num2 = Number(event.target.value);
+        num2 = event.target.value;
     }
-    console.log(`num1`,num1);
-    console.log(`num2:`,num2);
-
 }
+
 function getCalculationsArray(){
     axios({
         url:"/calculations",
         method: "GET"
 
     }).then((response) =>{
-        console.log("response.data",response.data);
         let calcArray = response.data;
         renderCalculations(calcArray);
     })
 }
-// dont forget to look at get in server
+function reset(){
+    document.getElementById("num1").value = "";
+    document.getElementById("num2").value = "";
+
+    num1 = 0;
+    num2 = 0;
+    globalOperator = "";
+}
+
+function handleCalcGridPress(event){
+    // if num1 is already set then set the second number
+    if (num1 == undefined || num1 == 0){
+    num1 = Number(event.target.textContent);
+    document.getElementById("num1").value = `${num1}`;
+    }
+    else{
+        num2 = Number(event.target.textContent);
+        document.getElementById("num2").value = `${num2}`;
+    }
+}
+
 function renderCalculations(calcArray){
     let mostRecent = document.getElementById("mostRecent");
     let history = document.getElementById("history");
@@ -84,46 +97,21 @@ function renderCalculations(calcArray){
     document.getElementById("mostRecent").innerHTML = "";
     document.getElementById("history").innerHTML = "";
 
-        if(calcArray.length == 0){
-            mostRecent.innerHTML +=
-            `
-            <h2>Most Recent Calculation: N/A </h2>
-            `
-        }
-        else if( calcArray.length == 1){
-            let mostRecentCalculation = calcArray.pop();
-            mostRecent.innerHTML += 
-            `
-            <h2>${mostRecentCalculation.num1} ${mostRecentCalculation.operator} ${mostRecentCalculation.num2} = ${mostRecentCalculation.result}</h2>
-            `
-        }
-        else
-        {
-            for(calculationObject of calcArray){
-                history.innerHTML+=
-                `
-                <h2>${calculationObject.num1} ${calculationObject.operator} ${calculationObject.num2} = ${calculationObject.result}</h2>
-                `
-            }
+    let mostRecentCalculation = calcArray[calcArray.length -1];
+    mostRecent.innerHTML+=
+    `
+    <h2>${mostRecentCalculation.result}</h2>
 
-       }
+    `
+    for(let i=0; i< calcArray.length;i++){
+    
+        history.innerHTML +=
+        `
+        <h1>${calcArray[i].num1} ${calcArray[i].operator} ${calcArray[i].num2} = ${calcArray[i].result}</h1>
+        `
+    }
 
 }
 
 onReady();
 
-
-
-
-// }
-
-
-// handleSubmit(event)
-/* axios stuff with method
-
-
-*/
-// you can have 3 global variables, num1, num2, and operator.
-
-// when you click a button, (+,-,* or /) it sets that global variable to whatever symbol. when you enter a number, it also does that for num 1 and num 2. ONLY when the = button is clicked, the data is actually calculated and sent and whatever. 
-// btw this happens in server.js

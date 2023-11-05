@@ -23,7 +23,7 @@ Your task is to create a calculator app that demonstrates your understanding of 
       * `<button>+</button>`
   * When the `=` button is clicked, capture the input values and operator, then send this data to `POST '/calculations'`. You'll need to format it like so:
     * `{ numOne: 25, numTwo: 10, operator: '+' }`
-  * There should be a `'C'` button that will clear the inputs.
+  **** There should be a `'C'` button that will clear the inputs.
 
 #### Server-Side:
 
@@ -131,6 +131,8 @@ Your task is to create a calculator app that demonstrates your understanding of 
 
 * Only allow the `POST` request to happen if all necessary input is ready.
   * *Data integrity is of maximum importance! Sometimes users hit the "go button" without fully inputting the needed fields. Display an alert if they left something empty, and don't send bad or incomplete data to the server.*
+  
+  if num 1, num2, and operator are != null 
 
 * Allow a user to clear the calculation history by clicking on a button. (This should empty out the `calculations` array on the server!) Technically this shouldn't be a `GET` or a `POST`. Look into making a `DELETE` request!
   * *`GET`s are used to, well, get information from the server. `POST`s are used to send new info to the server. `DELETE`s are used for, you guessed it, deleting info already on the server.*
